@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://dmjjaunju4co2"]
+
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_0i7lb"]
+[ext_resource type="Script" path="res://Scripts/LoginScene.gd" id="1_4xtyf"]
+[ext_resource type="PackedScene" uid="uid://dkn3on0wrsp0g" path="res://Scenes/Components/APIClient.tscn" id="2_4ltop"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_yh44g"]
+font_size = 14
+font_color = Color(0.00392157, 0.792157, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_t3ats"]
+font_size = 14
+font_color = Color(1, 0, 0, 1)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0i7lb")
+
+[node name="LoginScene" type="Node2D" parent="."]
+script = ExtResource("1_4xtyf")
+
+[node name="Login" type="Control" parent="LoginScene"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoginScene/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -62.5
+offset_right = 150.0
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SuccessLabel" type="Label" parent="LoginScene/Login/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_yh44g")
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="UsernameEdit" type="LineEdit" parent="LoginScene/Login/VBoxContainer"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+placeholder_text = "Username"
+alignment = 1
+
+[node name="EmailEdit" type="LineEdit" parent="LoginScene/Login/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+placeholder_text = "Email"
+alignment = 1
+
+[node name="PasswordEdit" type="LineEdit" parent="LoginScene/Login/VBoxContainer"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+placeholder_text = "Password"
+alignment = 1
+secret = true
+
+[node name="AuthRequestButton" type="Button" parent="LoginScene/Login/VBoxContainer"]
+layout_mode = 2
+text = "Sign In"
+
+[node name="ErrorLabel" type="Label" parent="LoginScene/Login/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_t3ats")
+horizontal_alignment = 1
+
+[node name="SwitchOperation" type="Button" parent="LoginScene/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = 208.0
+offset_right = 41.5
+offset_bottom = 239.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "New User"
+
+[node name="LogInAPIClient" parent="LoginScene" instance=ExtResource("2_4ltop")]
+
+[node name="RegisterAPIClient" parent="LoginScene" instance=ExtResource("2_4ltop")]
+
+[connection signal="signed_in" from="LoginScene" to="." method="start_server_browser"]
+[connection signal="pressed" from="LoginScene/Login/VBoxContainer/AuthRequestButton" to="LoginScene" method="_on_auth_button_pressed"]
+[connection signal="pressed" from="LoginScene/Login/SwitchOperation" to="LoginScene" method="_on_switch_operation_pressed"]

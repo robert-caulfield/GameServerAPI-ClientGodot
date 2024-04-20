@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmjjaunju4co2"]
+
+[ext_resource type="Script" path="res://Scripts/Main.gd" id="1_0i7lb"]
+[ext_resource type="Script" path="res://Scripts/LoginScene.gd" id="1_4xtyf"]
+[ext_resource type="PackedScene" uid="uid://dkn3on0wrsp0g" path="res://Scenes/Components/APIClient.tscn" id="2_4ltop"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_t3ats"]
+font_size = 14
+font_color = Color(1, 0, 0, 1)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_0i7lb")
+
+[node name="LoginScene" type="Node2D" parent="."]
+script = ExtResource("1_4xtyf")
+
+[node name="Login" type="Control" parent="LoginScene"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="LoginScene/Login"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -33.0
+offset_right = 150.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="UsernameEdit" type="LineEdit" parent="LoginScene/Login/VBoxContainer"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+text = "trustworthypie"
+placeholder_text = "Username"
+alignment = 1
+
+[node name="PasswordEdit" type="LineEdit" parent="LoginScene/Login/VBoxContainer"]
+custom_minimum_size = Vector2(300, 30)
+layout_mode = 2
+text = "Nickasme123$"
+placeholder_text = "Password"
+alignment = 1
+secret = true
+
+[node name="LoginButton" type="Button" parent="LoginScene/Login/VBoxContainer"]
+layout_mode = 2
+text = "Sign In"
+
+[node name="ErrorLabel" type="Label" parent="LoginScene/Login/VBoxContainer"]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_t3ats")
+horizontal_alignment = 1
+text_overrun_behavior = 3
+
+[node name="ApiClient" parent="LoginScene" instance=ExtResource("2_4ltop")]
+
+[connection signal="signed_in" from="LoginScene" to="." method="_on_login_scene_signed_in"]
+[connection signal="pressed" from="LoginScene/Login/VBoxContainer/LoginButton" to="LoginScene" method="_on_login_button_pressed"]

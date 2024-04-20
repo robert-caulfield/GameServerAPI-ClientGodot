@@ -1,0 +1,48 @@
+[gd_scene load_steps=8 format=3 uid="uid://dpakmoagu538w"]
+
+[ext_resource type="Script" path="res://Scripts/Multiplayer/Instances/Player.gd" id="1_oqteu"]
+[ext_resource type="Script" path="res://Scripts/Multiplayer/Instances/Sync/PlayerInput.gd" id="2_hjwo2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_su3b4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_kpev1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fn874"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_t857t"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:player_peer_id")
+properties/1/spawn = true
+properties/1/replication_mode = 0
+properties/2/path = NodePath(".:username")
+properties/2/spawn = true
+properties/2/replication_mode = 0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_ufrxu"]
+properties/0/path = NodePath("PlayerInput:direction")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="Player" type="CharacterBody3D"]
+motion_mode = 1
+script = ExtResource("1_oqteu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_su3b4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_kpev1")
+surface_material_override/0 = SubResource("StandardMaterial3D_fn874")
+
+[node name="PlayerSync" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_t857t")
+
+[node name="PlayerInput" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_ufrxu")
+script = ExtResource("2_hjwo2")
+
+[node name="UsernameLabel" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.951173, 0)

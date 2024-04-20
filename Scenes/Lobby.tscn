@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://ghhh6gr0nsha"]
+
+[ext_resource type="Script" path="res://Scripts/Lobby.gd" id="1_r4ks5"]
+
+[node name="Lobby" type="Node"]
+script = ExtResource("1_r4ks5")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="World"]
+_spawnable_scenes = PackedStringArray("res://Scenes/Multiplayer/Instances/Player.tscn")
+spawn_path = NodePath("../Players")
+
+[node name="Players" type="Node3D" parent="World"]
+
+[node name="Camera3D" type="Camera3D" parent="World"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
