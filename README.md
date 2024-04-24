@@ -37,7 +37,7 @@
    - Visit the GitHub repository at `https://github.com/robert-caulfield/GameServerAPI-ClientGodot`.
    - Click on `Code` and select `Download ZIP`, or clone the repository using:
      ```
-     git clone [https://github.com/robert-caulfield/GameServerAPI-ClientGodot]
+     git clone https://github.com/robert-caulfield/GameServerAPI-ClientGodot
      ```
 
 2. **Open the Project in Godot**
